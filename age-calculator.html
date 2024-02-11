@@ -128,7 +128,7 @@
                 document.getElementById('ans').textContent = "Date of birth needs to be earlier than current date."
             }
             else {
-                var ans = ((y1 > y) ? "Date of birth needs to be earlier than current date." : (y == y1 && m1 > m) ? "Date of birth needs to be earlier than current date." : (y == y1 && m == m1 && d1 > d) ? "Date of birth needs to be earlier than current date." : "You Are " + ((y - y1) <= 0 ? "" : ((y - y1) - 1) + " Year, ") + ((m - m1) != 0 ? ((m - m1) < 0 ? (m - m1) * (-1) : (m - m1)) + " Month " : "") + ((d > d1) ? ((d - d1) < 0 ? "and "+((d - d1) * (-1)) : "and " + (d - d1) + " day ") : "")) + ((d == d1&&m==m1) ? " Born Today" : "old.");
+                var ans = ((y1 > y) ? "Date of birth needs to be earlier than current date." : (y == y1 && m1 > m) ? "Date of birth needs to be earlier than current date." : (y == y1 && m == m1 && d1 > d) ? "Date of birth needs to be earlier than current date." : "You Are " + (((y - y1) <= 0 ? "" : ((y - y1) - 1) + " Year, ") + ((m - m1) != 0 ? ((m - m1) < 0 ? (m - m1) * (-1) : (m - m1)) + " Month " : "") + ((d > d1) ? ((d - d1) < 0 ? "and "+((d - d1) * (-1)) : "and " + (d - d1) + " day ") : "")) + ((d == d1&&m==m1) ? " Born Today" : "old."));
                 document.getElementById('ans').textContent = ans;
             }
         }
