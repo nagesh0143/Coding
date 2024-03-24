@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" href="https://raw.githubusercontent.com/nagesh0143/Coding/main/icon.png" type="icon/png/jpg">
+    <title>Analog-Clock</title>
+    <style>
+        * {
+            padding: 0;
+            margin: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background-color: #252532;
+        }
+
+        .k {
+            position: absolute;
+            transform: translate(-50%, -50%);
+            font-size: 1.6rem;
+            font-weight: bold;
+        }
+
+        .a {
+            position: absolute;
+            transform: translate(-50%, -50%);
+            border-radius: 100%;
+            transform-origin: bottom;
+            animation: linear;
+        }
+
+        #container {
+            top: 50%;
+            left: 50%;
+            height: 305px;
+            width: 305px;
+            background-color: rgb(69, 194, 156);
+            box-shadow: 0 0 30px rgb(255, 230, 5);
+            color: rgb(255, 255, 255);
+        }
+
+        h2{
+            position: absolute;
+            top: 63%;
+            left: 50%;
+            transform: translate(-50%,-50%);
+            color: #ffffff;
+            text-decoration: underline;
+        }
+
+        #dot {
+            top: 50%;
+            left: 50%;
+            height: 13px;
+            width: 13px;
+            background-color: #fff;
+        }
+
+        #h {
+            top: 37%;
+            left: 50%;
+            height: 80px;
+            width: 10px;
+            background-color: rgb(236, 158, 12);
+        }
+
+        #m {
+            top: 34%;
+            left: 50%;
+            height: 100px;
+            width: 9px;
+            background-color: rgb(236, 62, 149);
+        }
+
+        #s {
+            top: 30%;
+            left: 50%;
+            height: 120px;
+            width: 8px;
+            background-color: rgb(230, 255, 7);
+        }
+
+        #k12 {
+            top: 4%;
+            left: 50%;
+        }
+
+        #k1 {
+            top: 11%;
+            left: 73%;
+        }
+
+        #k2 {
+            top: 27%;
+            left: 90%;
+        }
+
+        #k3 {
+            top: 50%;
+            left: 96%;
+        }
+
+        #k4 {
+            top: 74%;
+            left: 89%;
+        }
+
+        #k5 {
+            top: 89%;
+            left: 73%;
+        }
+
+        #k6 {
+            top: 96%;
+            left: 50%;
+        }
+
+        #k7 {
+            top: 90%;
+            left: 27%;
+        }
+
+        #k8 {
+            top: 73%;
+            left: 11%;
+        }
+
+        #k9 {
+            top: 50%;
+            left: 4%;
+        }
+
+        #k10 {
+            top: 27%;
+            left: 12%;
+        }
+
+        #k11 {
+            top: 11%;
+            left: 27%;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="container" class="a">
+        <h2>Nagesh Codes</h2>
+        <div id="h" class="a"></div>
+        <div id="m" class="a"></div>
+        <div id="s" class="a"></div>
+        <div id="dot" class="a"></div>
+        <div id="k1" class="k">1</div>
+        <div id="k2" class="k">2</div>
+        <div id="k3" class="k">3</div>
+        <div id="k4" class="k">4</div>
+        <div id="k5" class="k">5</div>
+        <div id="k6" class="k">6</div>
+        <div id="k7" class="k">7</div>
+        <div id="k8" class="k">8</div>
+        <div id="k9" class="k">9</div>
+        <div id="k10" class="k">10</div>
+        <div id="k11" class="k">11</div>
+        <div id="k12" class="k">12</div>
+    </div>
+    <script>
+        update_time();
+        function update_time() {
+            var h = document.getElementById("h");
+            var m = document.getElementById("m");
+            var s = document.getElementById("s");
+            var dt = new Date();
+            var mi = dt.getMinutes();
+            var t = dt.getHours() * 30;
+            var ht = t + 0.5 * mi;
+            var st = dt.getSeconds() * 6;
+            var si = dt.getSeconds();
+            var mt = dt.getMinutes() * 6 + (si * 0.1);
+            h.style.transform = "translate(-50%,-50%) rotate(" + ht + "deg)";
+            m.style.transform = "translate(-50%,-50%) rotate(" + mt + "deg)";
+            s.style.transform = "translate(-50%,-50%) rotate(" + st + "deg)";
+        }
+        setInterval(update_time, 1000)
+    </script>
+</body>
+
+</html>
