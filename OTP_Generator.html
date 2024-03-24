@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" href="https://raw.githubusercontent.com/nagesh0143/Coding/main/icon.png" type="icon/png/jpg">
+    <title>OTP Generator</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background-color: #252532;
+        }
+
+        #main {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            padding: 20px;
+            color: #fff;
+            box-shadow: 0 0 30px cyan;
+            width: auto;
+            height: auto;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            border: 3px solid cyan;
+        }
+
+        h2 {
+            padding: 10px 0px 20px 0px;
+        }
+
+        #inner {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+        }
+
+        input {
+            border: none;
+            background-color: transparent;
+            border-bottom: 3px solid #ff2770;
+            caret-color: rgb(226, 140, 10);
+            color: red;
+            padding: 0px 10px 0px 10px;
+        }
+
+        input:focus {
+            outline: none;
+        }
+
+        input::placeholder {
+            opacity: 100%;
+            color: rgb(226, 140, 10);
+            padding: 0px;
+        }
+
+        #bt {
+            padding: 10px 0px 0px 0px;
+        }
+
+        button {
+            border: none;
+            padding: 5px;
+            border-radius: 100px;
+            color: #fff;
+            background-color: red;
+        }
+
+        p {
+            padding: 13px 0px 0px 0px;
+            letter-spacing: 7px;
+            color: #e8f800;
+            font-weight: bold;
+            font-size: 1.3rem;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="main">
+        <h2>OTP Generator</h2>
+        <div id="inner">
+            <input type="number" id="user" placeholder="How Much Digits">
+            <div id="bt">
+                <button onclick="generate_otp()">Generate OTP</button>
+            </div>
+        </div>
+        <p id="otp"></p>
+    </div>
+    <script>
+        function generate_otp() {
+            document.getElementById("otp").innerHTML = "";
+            var user_query = Number(document.getElementById("user").value);
+            var numbers = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9];
+            for (i = 1; i <= user_query; i++) {
+                document.getElementById("otp").innerHTML += numbers[Math.floor(Math.random() * 9)];
+            }
+        }
+    </script>
+</body>
+
+</html>
