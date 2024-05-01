@@ -1,0 +1,277 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Stop-Watch</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body,
+        html {
+            height: 100%;
+            width: 100%;
+            font-family: sans-serif;
+            font-weight: bold;
+            user-select: none;
+        }
+
+        body {
+            overflow-y: scroll;
+        }
+
+        #container {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            height: auto;
+            width: 30%;
+            border: 2px solid red;
+            border-radius: 30px;
+            box-shadow: 0px 0px 30px #ff2770;
+            padding: 13px;
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        #stop-watch {
+            height: auto;
+            width: 100%;
+            border: 2px solid red;
+            border-radius: 30px;
+            box-shadow: 0px 0px 30px #ff2770;
+            background-image: linear-gradient(30deg, cyan, yellow);
+            padding: 13px;
+            text-align: center;
+            display: flex;
+            flex-direction: column;
+            gap: 14px;
+        }
+
+        #set-time {
+            display: none;
+        }
+
+        #main {
+            width: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: space-around;
+        }
+
+        #main input {
+            height: 30px;
+            width: 30px;
+            text-align: center;
+            border-radius: 100px;
+            background-color: transparent;
+            color: #fff;
+            font-weight: bold;
+            background: rgb(96, 50, 180);
+            outline: none;
+            border: 1px solid #ff2770;
+            letter-spacing: 1px;
+        }
+
+        #main p {
+            text-align: center;
+            font-size: 1.3rem;
+            color: #ff0ca2;
+        }
+
+        #bt {
+            width: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: space-around;
+        }
+
+        .btn {
+            padding: 5px;
+            border-radius: 100px;
+            background-color: #ff2770;
+            color: #fff;
+            border: 3px solid;
+            cursor: pointer;
+        }
+
+        .btn:active {
+            background-color: #fff;
+            color: #ff2770;
+        }
+
+        .op {
+            width: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .op h3 {
+            width: 100%;
+            color: #fff;
+            background-color: #ff2770;
+            text-align: center;
+            border-radius: 100px;
+            border: 3px solid;
+            cursor: pointer;
+        }
+
+        .op h3:active {
+            background-color: hsl(0, 0%, 100%);
+            color: #ff2770;
+        }
+
+        #ans {
+            max-height: 100px;
+            width: auto;
+            border: 3px solid #ff2770;
+            overflow-y: scroll;
+            padding: 10px;
+            border-radius: 20px;
+            display: none;
+        }
+
+        #ans::-webkit-scrollbar {
+            display: none;
+        }
+
+        #ans p {
+            color: #33ff00;
+            font-weight: 800;
+        }
+
+        @media only screen and (max-width:768px) {
+            #container {
+                width: 95%;
+            }
+
+            #stop-watch {
+                width: 100%;
+                gap: 7px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div id="container">
+        <!-- stop-watch -->
+        <div id="stop-watch">
+            <h2>Stop-Watch</h2>
+            <div id="main">
+                <div>
+                    <p>H</p>
+                    <input id="hour" disabled>
+                </div>
+                <div>
+                    <p>M</p>
+                    <input id="minute" disabled>
+                </div>
+                <div>
+                    <p>S</p>
+                    <input id="second" disabled>
+                </div>
+                <div>
+                    <p>MS</p>
+                    <input id="mili-second" disabled>
+                </div>
+            </div>
+            <div id="bt">
+                <button id="btn1" class="btn">Start</button>
+                <button id="btn2" class="btn">Stop</button>
+                <button id="btn3" class="btn">Reset</button>
+            </div>
+            <div id="save" class="op">
+                <h3>Save</h3>
+            </div>
+            <div id="clear" class="op">
+                <h3>Clear</h3>
+            </div>
+        </div>
+        <div id="ans"></div>
+    </div>
+    <script>
+        const container = document.getElementById("container");
+        const btn1 = document.getElementById("btn1");
+        const btn2 = document.getElementById("btn2");
+        const btn3 = document.getElementById("btn3");
+        const save = document.getElementById("save");
+        const ans = document.getElementById("ans");
+        const clear = document.getElementById("clear");
+        const hour = document.getElementById("hour");
+        const minute = document.getElementById("minute");
+        const second = document.getElementById("second");
+        const mili_second = document.getElementById("mili-second");
+        let ms = 0, s = 0, m = 0, h = 0, c, mainx, mainy, i = 0;
+        hour.value = minute.value = second.value = mili_second.value = "00";
+
+        btn1.addEventListener("click", () => {
+            c = "start";
+        });
+
+        btn2.addEventListener("click", () => {
+            c = "pause";
+        });
+
+        btn3.addEventListener("click", () => {
+            c = "stop";
+        });
+
+        save.addEventListener("click", () => {
+
+        });
+
+        function Start() {
+            if (c == "start") {
+                ms++;
+                s = ms >= 99 ? (ms = 0, s += 1) : s;
+                m = s > 59 ? (s = 0, m += 1) : m;
+                h = m >= 59 ? (m = 0, h += 1) : h;
+                mili_second.value = ms < 10 ? "0" + ms : ms;
+                second.value = s < 10 ? "0" + s : s;
+                minute.value = m < 10 ? "0" + m : m;
+                hour.value = h < 10 ? "0" + h : h;
+            } else if (c == "pause") {
+                mili_second.value = ms < 10 ? "0" + ms : ms;
+                second.value = s < 10 ? "0" + s : s;
+                minute.value = m < 10 ? "0" + m : m;
+                hour.value = h < 10 ? "0" + h : h;
+            } else if (c == "stop") {
+                hour.value = minute.value = second.value = mili_second.value = "00";
+                s = m = h = ms = 0;
+            };
+        };
+        setInterval(Start, 10);
+
+        save.addEventListener("click", () => {
+            i++;
+            ans.style.display = "block";
+            var p = document.createElement("p");
+            p.textContent = i + " :- " + "H : " + (h < 10 ? "0" + h : h) + " - M : " + (m < 10 ? "0" + m : m) + " - S : " + (s < 10 ? "0" + s : s) + " - MS : " + (ms < 10 ? "0" + ms : ms);
+            ans.appendChild(p);
+            ans.scrollTop = ans.scrollHeight
+        });
+
+        clear.addEventListener("click", () => {
+            var all_p = document.querySelectorAll("#ans p");
+            all_p.forEach(function (e) {
+                e.parentNode.removeChild(e);
+            });
+            i = 0;
+            ans.style.display = "none";
+        });
+
+    </script>
+</body>
+
+</html>
